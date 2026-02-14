@@ -1,0 +1,9 @@
+{
+  "name": "skills",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "build": "pnpm -r build",
+    "clean": "pnpm -r clean"
+  }
+}
