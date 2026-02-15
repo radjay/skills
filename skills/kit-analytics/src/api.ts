@@ -33,6 +33,15 @@ export interface Subscriber {
   created_at: string;
 }
 
+export interface BroadcastStats {
+  recipients: number;
+  open_rate: number;
+  click_rate: number;
+  unsubscribes: number;
+  total_clicks: number;
+  status: string;
+}
+
 export interface Broadcast {
   id: number;
   subject: string;
@@ -40,16 +49,6 @@ export interface Broadcast {
   published_at?: string | null;
   send_at?: string | null;
   description?: string | null;
-  stats?: {
-    recipients: number;
-    open_rate: number;
-    click_rate: number;
-    unsubscribes: number;
-    total_clicks: number;
-    show_total_clicks: boolean;
-    status: string;
-    progress: number;
-  };
 }
 
 export interface Tag {
@@ -137,6 +136,10 @@ export class KitClient {
     if (opts?.limit) params["per_page"] = opts.limit;
     if (opts?.cursor) params["after"] = opts.cursor;
     return this.request("/broadcasts", params);
+  }
+
+  async getBroadcastStats(id: number): Promise<{ broadcast: { id: number; stats: BroadcastStats } }> {
+    return this.request(`/broadcasts/${id}/stats`);
   }
 
   async listTags(opts?: {
