@@ -14,7 +14,7 @@ const program = new Command();
 program
   .name("kit-analytics")
   .description("Pull Kit.com newsletter analytics via Kit API v4")
-  .version("0.0.1")
+  .version("0.0.2")
   .option("--api-key <key>", "Kit API key (overrides KIT_API_KEY env var)")
   .option("--format <format>", "Output format: json or table", "table");
 
