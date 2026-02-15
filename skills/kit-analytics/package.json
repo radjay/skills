@@ -1,5 +1,5 @@
 {
-  "name": "@skills/kit-analytics",
+  "name": "@radjay/kit-analytics",
   "version": "0.0.1",
   "description": "CLI tool to pull Kit.com newsletter analytics via Kit API v4",
   "bin": {
