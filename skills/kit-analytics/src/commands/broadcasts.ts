@@ -23,7 +23,7 @@ export function broadcastsCommand(): Command {
         rows.push({
           id: b.id,
           subject: b.subject ?? "",
-          created_at: b.created_at,
+          sent_at: b.published_at ?? b.send_at ?? b.created_at,
           recipients: s.recipients,
           open_rate: `${s.open_rate.toFixed(1)}%`,
           click_rate: `${s.click_rate.toFixed(1)}%`,
