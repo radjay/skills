@@ -9,7 +9,7 @@ export function sequencesCommand(): Command {
       const client = this.opts()["__client"] as KitClient;
       const format = this.opts()["__format"] as string;
       const res = await client.listSequences();
-      const rows = res.data.map((s) => ({
+      const rows = res.sequences.map((s) => ({
         id: s.id,
         name: s.name,
         created_at: s.created_at,

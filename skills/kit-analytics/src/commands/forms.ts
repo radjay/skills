@@ -9,7 +9,7 @@ export function formsCommand(): Command {
       const client = this.opts()["__client"] as KitClient;
       const format = this.opts()["__format"] as string;
       const res = await client.listForms();
-      const rows = res.data.map((f) => ({
+      const rows = res.forms.map((f) => ({
         id: f.id,
         name: f.name,
         type: f.type,

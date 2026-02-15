@@ -9,7 +9,14 @@ export function accountCommand(): Command {
       const client = this.opts()["__client"] as KitClient;
       const format = this.opts()["__format"] as string;
       const res = await client.getAccount();
-      const { name, plan_name, primary_email_address, state, created_at } = res.user;
-      output({ name, plan: plan_name, email: primary_email_address, state, created_at }, format);
+      output(
+        {
+          name: res.account.name,
+          plan: res.account.plan_type,
+          email: res.account.primary_email_address,
+          created_at: res.account.created_at,
+        },
+        format,
+      );
     });
 }

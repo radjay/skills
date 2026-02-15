@@ -4,22 +4,24 @@ export interface KitClientOptions {
   apiKey: string;
 }
 
-export interface PaginatedResponse<T> {
-  data: T[];
-  pagination: {
-    has_previous_page: boolean;
-    has_next_page: boolean;
-    start_cursor: string | null;
-    end_cursor: string | null;
-    per_page: number;
-  };
+export interface Pagination {
+  has_previous_page: boolean;
+  has_next_page: boolean;
+  start_cursor: string | null;
+  end_cursor: string | null;
+  per_page: number;
 }
 
-export interface Account {
+export interface AccountUser {
+  id: number;
+  email: string;
+}
+
+export interface AccountInfo {
+  id: number;
   name: string;
-  plan_name: string;
+  plan_type: string;
   primary_email_address: string;
-  state: string;
   created_at: string;
 }
 
@@ -35,8 +37,9 @@ export interface Broadcast {
   id: number;
   subject: string;
   created_at: string;
-  published_at: string | null;
-  send_at: string | null;
+  published_at?: string | null;
+  send_at?: string | null;
+  description?: string | null;
   stats?: {
     recipients: number;
     open_rate: number;
@@ -89,7 +92,7 @@ export class KitClient {
 
     const res = await fetch(url.toString(), {
       headers: {
-        Authorization: `Bearer ${this.apiKey}`,
+        "X-Kit-Api-Key": this.apiKey,
         Accept: "application/json",
       },
     });
@@ -102,7 +105,7 @@ export class KitClient {
     return res.json() as Promise<T>;
   }
 
-  async getAccount(): Promise<{ user: Account }> {
+  async getAccount(): Promise<{ user: AccountUser; account: AccountInfo }> {
     return this.request("/account");
   }
 
@@ -113,7 +116,7 @@ export class KitClient {
     until?: string;
     limit?: string;
     cursor?: string;
-  }): Promise<PaginatedResponse<Subscriber>> {
+  }): Promise<{ subscribers: Subscriber[]; pagination: Pagination }> {
     const params: Record<string, string> = {};
     if (opts?.status) params["status"] = opts.status;
     if (opts?.tagId) params["tag_id"] = opts.tagId;
@@ -128,7 +131,7 @@ export class KitClient {
     status?: string;
     limit?: string;
     cursor?: string;
-  }): Promise<PaginatedResponse<Broadcast>> {
+  }): Promise<{ broadcasts: Broadcast[]; pagination: Pagination }> {
     const params: Record<string, string> = {};
     if (opts?.status) params["status"] = opts.status;
     if (opts?.limit) params["per_page"] = opts.limit;
@@ -136,13 +139,9 @@ export class KitClient {
     return this.request("/broadcasts", params);
   }
 
-  async getBroadcastStats(id: number): Promise<{ broadcast: Broadcast }> {
-    return this.request(`/broadcasts/${id}/stats`);
-  }
-
   async listTags(opts?: {
     cursor?: string;
-  }): Promise<PaginatedResponse<Tag>> {
+  }): Promise<{ tags: Tag[]; pagination: Pagination }> {
     const params: Record<string, string> = {};
     if (opts?.cursor) params["after"] = opts.cursor;
     return this.request("/tags", params);
@@ -151,7 +150,7 @@ export class KitClient {
   async listForms(opts?: {
     status?: string;
     cursor?: string;
-  }): Promise<PaginatedResponse<Form>> {
+  }): Promise<{ forms: Form[]; pagination: Pagination }> {
     const params: Record<string, string> = {};
     if (opts?.status) params["status"] = opts.status;
     if (opts?.cursor) params["after"] = opts.cursor;
@@ -160,7 +159,7 @@ export class KitClient {
 
   async listSequences(opts?: {
     cursor?: string;
-  }): Promise<PaginatedResponse<Sequence>> {
+  }): Promise<{ sequences: Sequence[]; pagination: Pagination }> {
     const params: Record<string, string> = {};
     if (opts?.cursor) params["after"] = opts.cursor;
     return this.request("/sequences", params);

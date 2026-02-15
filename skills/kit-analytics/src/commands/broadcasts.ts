@@ -15,10 +15,10 @@ export function broadcastsCommand(): Command {
         status: opts.status,
         limit: opts.limit,
       });
-      const rows = res.data.map((b) => ({
+      const rows = res.broadcasts.map((b) => ({
         id: b.id,
-        subject: b.subject,
-        published_at: b.published_at ?? "",
+        subject: b.subject ?? "",
+        created_at: b.created_at,
         recipients: b.stats?.recipients ?? "",
         open_rate: b.stats?.open_rate != null ? `${(b.stats.open_rate * 100).toFixed(1)}%` : "",
         click_rate: b.stats?.click_rate != null ? `${(b.stats.click_rate * 100).toFixed(1)}%` : "",

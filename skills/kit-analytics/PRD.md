@@ -6,7 +6,7 @@ CLI tool that pulls newsletter data from [Kit.com](https://kit.com) via the [Kit
 
 ## Authentication
 
-- Kit API v4 uses Bearer token auth (`Authorization: Bearer <token>`)
+- Kit API v4 uses `X-Kit-Api-Key` header auth
 - The CLI accepts the API key via `KIT_API_KEY` environment variable or `--api-key` flag
 - Base URL: `https://api.kit.com/v4/`
 

@@ -21,7 +21,7 @@ export function subscribersCommand(): Command {
         until: opts.until,
         limit: opts.limit,
       });
-      const rows = res.data.map((s) => ({
+      const rows = res.subscribers.map((s) => ({
         id: s.id,
         email: s.email_address,
         first_name: s.first_name ?? "",
