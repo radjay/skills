@@ -15,6 +15,15 @@ importers:
         specifier: ^3.0.5
         version: 3.2.4(@types/node@22.19.11)
 
+  packages/resolve-key:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.19.11
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+
   skills/example:
     devDependencies:
       typescript:
@@ -23,6 +32,9 @@ importers:
 
   skills/kit-analytics:
     dependencies:
+      '@radjay/resolve-key':
+        specifier: workspace:*
+        version: link:../../packages/resolve-key
       commander:
         specifier: ^13.1.0
         version: 13.1.0

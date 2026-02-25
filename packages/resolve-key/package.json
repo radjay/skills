@@ -1,0 +1,16 @@
+{
+  "name": "@radjay/resolve-key",
+  "version": "0.0.1",
+  "description": "Resolve API keys from env vars, config files, .env files, or shell commands",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3"
+  }
+}

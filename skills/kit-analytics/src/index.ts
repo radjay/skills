@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
+import { resolveKey } from "@radjay/resolve-key";
 import { KitClient } from "./api.js";
 import { accountCommand } from "./commands/account.js";
 import { subscribersCommand } from "./commands/subscribers.js";
@@ -16,14 +17,25 @@ program
   .description("Pull Kit.com newsletter analytics via Kit API v4")
   .version("0.0.2")
   .option("--api-key <key>", "Kit API key (overrides KIT_API_KEY env var)")
+  .option("--api-key-cmd <cmd>", "Shell command that outputs the API key")
   .option("--format <format>", "Output format: json or table", "table");
 
 program.hook("preAction", () => {
   const opts = program.opts();
-  const apiKey = opts.apiKey || process.env["KIT_API_KEY"];
+
+  const apiKey = resolveKey({
+    flag: opts.apiKey,
+    keyCmd: opts.apiKeyCmd,
+    envVar: "KIT_API_KEY",
+    appName: "kit-analytics",
+  });
 
   if (!apiKey) {
-    console.error("Error: Kit API key is required. Set KIT_API_KEY env var or pass --api-key.");
+    console.error(
+      "Error: Kit API key is required.\n" +
+        "  Set KIT_API_KEY env var, pass --api-key, use --api-key-cmd,\n" +
+        "  add it to a .env file, or save it in ~/.config/kit-analytics/config.json.",
+    );
     process.exit(1);
   }
 

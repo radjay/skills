@@ -11,6 +11,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@radjay/resolve-key": "workspace:*",
     "commander": "^13.1.0"
   },
   "devDependencies": {
