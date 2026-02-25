@@ -46,6 +46,22 @@ importers:
         specifier: ^5.7.3
         version: 5.9.3
 
+  skills/posthog-analytics:
+    dependencies:
+      '@radjay/resolve-key':
+        specifier: workspace:*
+        version: link:../../packages/resolve-key
+      commander:
+        specifier: ^13.1.0
+        version: 13.1.0
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.19.11
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+
 packages:
 
   '@esbuild/aix-ppc64@0.27.3':
