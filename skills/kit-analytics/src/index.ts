@@ -5,6 +5,7 @@ import { resolveKey } from "@radjay/resolve-key";
 import { KitClient } from "./api.js";
 import { accountCommand } from "./commands/account.js";
 import { subscribersCommand } from "./commands/subscribers.js";
+import { broadcastCommand } from "./commands/broadcast.js";
 import { broadcastsCommand } from "./commands/broadcasts.js";
 import { tagsCommand } from "./commands/tags.js";
 import { formsCommand } from "./commands/forms.js";
@@ -52,6 +53,7 @@ program.hook("preAction", () => {
 // Register commands — each command pulls client/format from its own opts
 program.addCommand(accountCommand());
 program.addCommand(subscribersCommand());
+program.addCommand(broadcastCommand());
 program.addCommand(broadcastsCommand());
 program.addCommand(tagsCommand());
 program.addCommand(formsCommand());

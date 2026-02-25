@@ -1,6 +1,6 @@
 {
   "name": "@radjay/kit-analytics",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CLI tool to pull Kit.com newsletter analytics via Kit API v4",
   "bin": {
     "kit-analytics": "./dist/index.js"

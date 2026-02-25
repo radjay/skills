@@ -51,6 +51,25 @@ export interface Broadcast {
   description?: string | null;
 }
 
+export interface BroadcastDetail {
+  id: number;
+  publication_id: number;
+  created_at: string;
+  subject: string;
+  preview_text: string | null;
+  description: string | null;
+  content: string | null;
+  public: boolean;
+  published_at: string | null;
+  send_at: string | null;
+  thumbnail_alt: string | null;
+  thumbnail_url: string | null;
+  public_url: string | null;
+  email_address: string | null;
+  email_template: { id: number; name: string } | null;
+  subscriber_filter: unknown[];
+}
+
 export interface Tag {
   id: number;
   name: string;
@@ -136,6 +155,10 @@ export class KitClient {
     if (opts?.limit) params["per_page"] = opts.limit;
     if (opts?.cursor) params["after"] = opts.cursor;
     return this.request("/broadcasts", params);
+  }
+
+  async getBroadcast(id: number): Promise<{ broadcast: BroadcastDetail }> {
+    return this.request(`/broadcasts/${id}`);
   }
 
   async getBroadcastStats(id: number): Promise<{ broadcast: { id: number; stats: BroadcastStats } }> {
